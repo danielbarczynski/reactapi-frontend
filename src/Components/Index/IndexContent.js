@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
+import PersonList from './PersonList';
 
 const IndexContent = () => {
   return (
     <div>
-      IndexContent
+        <PersonList />
       <p>
         <Link to='/create'>Create</Link>
       </p>
