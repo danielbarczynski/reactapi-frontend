@@ -1,14 +1,15 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React from 'react'
 
-const CreateContent = ({API_URL, inputAge, inputName, setInputAge, setInputName}) => {
+const CreateContent = ({API_URL, inputAge, inputName, setInputAge, setInputName, setRefresh, persons}) => {
     const newPerson = {
         name: inputName,
         age: inputAge
     }
     
-    const handlePost = () => {
-        axios.post(API_URL, newPerson);
+    const handlePost = async () => {
+        await axios.post(API_URL, newPerson);
+        setRefresh(persons);
         setInputName('');
         setInputAge('');
     };

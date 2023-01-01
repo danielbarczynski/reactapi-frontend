@@ -1,17 +1,10 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const PersonList = ({API_URL, persons, setPersons}) => {
-    useEffect(() => {
-        axios.get(API_URL)
-            .then(res => {
-                setPersons(res.data)
-            });
-    });
-
+const PersonList = ({API_URL, persons, setRefresh}) => {
     const handleDelete = async (id) => {
         await axios.delete(API_URL + id);
+        setRefresh(persons);
     };
 
     return (

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 
-const UpdateContent = ({ API_URL, inputAge, inputName, setInputAge, setInputName }) => {
+const UpdateContent = ({ API_URL, inputAge, inputName, setInputAge, setInputName, persons, setRefresh }) => {
     const location = useLocation();
     const { id, name, age } = location.state;
     useEffect(() => {
@@ -15,8 +15,9 @@ const UpdateContent = ({ API_URL, inputAge, inputName, setInputAge, setInputName
         name: inputName,
         age: inputAge
     }
-    const handleUpdate = () => {
-        axios.put(API_URL + id, newPerson);
+    const handleUpdate = async () => {
+        await axios.put(API_URL + id, newPerson);
+        setRefresh(persons);
         clearInputs();
     };
     const clearInputs = () => {
