@@ -15,3 +15,8 @@ code {
 a {
   color: grey;
 }
+
+button, input {
+  font-size: 20px;
+  margin-right: 5px;
+}

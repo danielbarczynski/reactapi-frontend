@@ -1,15 +1,45 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
-const UpdateContent = () => {
-  return (
-    <div>
-      UpdateContent
-      <p>
-        <Link to='/'>Back to home</Link>
-      </p>
-    </div>
-  )
-}
+const UpdateContent = ({ API_URL, inputAge, inputName, setInputAge, setInputName }) => {
+    const location = useLocation();
+    const { id, name, age } = location.state;
+    useEffect(() => {
+        setInputName(name);
+        setInputAge(age);
+    }, []);
 
-export default UpdateContent
+    const newPerson = {
+        name: inputName,
+        age: inputAge
+    }
+    const handleUpdate = () => {
+        axios.put(API_URL + id, newPerson);
+        clearInputs();
+    };
+    const clearInputs = () => {
+        setInputName('');
+        setInputAge('');
+    }
+    return (
+        <div>
+            <div>
+            </div>
+            <h3>Update Person</h3>
+            <label htmlFor="">Name </label>
+            <input type="text" value={inputName} onInput={e => setInputName(e.target.value)} />
+            <br />
+            <label htmlFor="">Age </label>
+            <input type="text" value={inputAge} onInput={e => setInputAge(e.target.value)} />
+            <br />
+            <Link to='/'><button onClick={handleUpdate}>Submit</button></Link>
+            <p>
+                <Link to='/' onClick={clearInputs}>Back to home</Link>
+            </p>
+        </div>
+    )
+};
+
+export default UpdateContent;
